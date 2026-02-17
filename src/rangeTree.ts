@@ -18,7 +18,7 @@ const sortRanges = <D>(ranges: HighlightedRange<D>[]) => {
 
     return b.r[1] - a.r[1];
   });
-}
+};
 
 export const makeRangesTree = <D = unknown>(
   length: number,
@@ -43,7 +43,7 @@ export const makeRangesTree = <D = unknown>(
       stack.push(range);
       currentIndex += 1;
 
-    // Current range is partially overlapping with the range on top of the stack
+      // Current range is partially overlapping with the range on top of the stack
     } else if (top.range.r[1] > currentRange.r[0]) {
       // Split the top range into two parts: the overlapping part and the remaining part
       const overlapRange = {
@@ -78,9 +78,8 @@ export const makeRangesTree = <D = unknown>(
       stack.push(remainingRange);
       currentIndex += 1;
 
-    // Current range had no overlap with the top range
+      // Current range had no overlap with the top range
     } else if (top.range.r[1] <= currentRange.r[0]) {
-
       // Removing the top range from the stack, since there wont be any more ranges overlapping with it
       stack.pop();
 
@@ -89,7 +88,7 @@ export const makeRangesTree = <D = unknown>(
       }
 
       // We add top to the children of previous top, since there wont be any more ranges overlapping with it
-      // And we process the current range in the next iteration 
+      // And we process the current range in the next iteration
       const newTop = stack[stack.length - 1];
       newTop.children.push(top);
     }
@@ -121,7 +120,9 @@ export const rangesTreeToRanges = <D = unknown>(
 
   node.children.forEach((child) => {
     // Create range with parent data with gap between prev child(or parent start) and current child start
-    const newParentData = mergeData ? mergeData(parentData, node.range.data) : node.range.data;
+    const newParentData = mergeData
+      ? mergeData(parentData, node.range.data)
+      : node.range.data;
 
     if (currentIndex < child.range.r[0]) {
       result.push({
@@ -140,7 +141,9 @@ export const rangesTreeToRanges = <D = unknown>(
     result.push({
       ...node.range,
       r: [currentIndex, node.range.r[1]] as [number, number],
-      data: mergeData ? mergeData(parentData, node.range.data) : node.range.data,
+      data: mergeData
+        ? mergeData(parentData, node.range.data)
+        : node.range.data,
     });
   }
 

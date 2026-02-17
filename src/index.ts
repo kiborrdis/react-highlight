@@ -1,4 +1,4 @@
-export { HightlightedText } from "./HightlightedText"
-export { useInputHightlight } from "./useInputHightlight";
-export { useTextareaHightlight } from "./useTextareaHightlight";
+export { HighlightedText } from "./HighlightedText";
+export { useInputHighlight, useTextareaHighlight } from "./useHighlight";
+export { InputOverlay } from "./InputOverlay";
 export type { HighlightedRange } from "./rangeTree";

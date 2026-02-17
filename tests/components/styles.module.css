@@ -1,0 +1,66 @@
+/* Reset styles for input and textarea elements to ensure consistent appearance across platforms */
+
+.input {
+  /* Font normalization */
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: normal;
+
+  /* Box model */
+  box-sizing: border-box;
+  padding: 16px;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-radius: 0;
+
+  /* Appearance */
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  background-color: white;
+  color: black;
+
+  /* Outline and focus */
+  outline: none;
+
+  /* Text handling */
+  resize: none;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.textarea {
+  /* Font normalization */
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: normal;
+
+  /* Box model */
+  box-sizing: border-box;
+  padding: 8px 4px;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-radius: 0;
+
+  /* Appearance */
+  appearance: none;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+  background-color: white;
+  color: black;
+
+  /* Outline and focus */
+  outline: none;
+
+  /* Text handling */
+  resize: none;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}

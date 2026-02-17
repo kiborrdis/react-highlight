@@ -99,16 +99,22 @@ describe("makeRangesTree", () => {
   });
 
   it("handles ranges with the same start and different sort directions equally", () => {
-    const tree = makeRangesTree(10, [{
-      r: [0, 9]
-    }, {
-      r: [0, 8]
-    }]);
-    const tree1 = makeRangesTree(10, [{
-      r: [0, 8]
-    }, {
-      r: [0, 9]
-    }]);
+    const tree = makeRangesTree(10, [
+      {
+        r: [0, 9],
+      },
+      {
+        r: [0, 8],
+      },
+    ]);
+    const tree1 = makeRangesTree(10, [
+      {
+        r: [0, 8],
+      },
+      {
+        r: [0, 9],
+      },
+    ]);
     expect(tree).toEqual(tree1);
   });
 
@@ -226,9 +232,7 @@ describe("rangesTreeToRanges", () => {
       children: [
         {
           range: { r: [2, 8], data: "mid" },
-          children: [
-            { range: { r: [4, 6], data: "inner" }, children: [] },
-          ],
+          children: [{ range: { r: [4, 6], data: "inner" }, children: [] }],
         },
       ],
     };
@@ -269,9 +273,7 @@ describe("rangesTreeToRanges", () => {
       children: [
         {
           range: { r: [2, 8], data: "l2" },
-          children: [
-            { range: { r: [4, 6], data: "l3" }, children: [] },
-          ],
+          children: [{ range: { r: [4, 6], data: "l3" }, children: [] }],
         },
       ],
     };
@@ -291,9 +293,7 @@ describe("rangesTreeToRanges", () => {
   it("returns child covering full parent with no gaps", () => {
     const node: TreeNode<string> = {
       range: { r: [0, 10], data: "parent" },
-      children: [
-        { range: { r: [0, 10], data: "child" }, children: [] },
-      ],
+      children: [{ range: { r: [0, 10], data: "child" }, children: [] }],
     };
     const ranges = rangesTreeToRanges(node);
     expect(ranges).toEqual([{ r: [0, 10], data: "child" }]);

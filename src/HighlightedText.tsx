@@ -5,20 +5,25 @@ import {
   rangesTreeToRanges,
 } from "./rangeTree";
 
-type RenderRange<D extends any = unknown> = (
+type RenderRange<D extends unknown = unknown> = (
   key: string,
   text: string,
   data?: D,
 ) => React.ReactNode;
 
-export const HightlightedText = <D extends any = unknown>({
+export const HighlightedText = <D extends unknown = unknown>({
   text,
   ranges,
   renderRange,
+  mergeRangesData,
 }: {
   text: string;
   ranges: HighlightedRange<D>[];
   renderRange: RenderRange<D>;
+  mergeRangesData?: (
+    parentData: D | undefined,
+    childData: D | undefined,
+  ) => D | undefined;
 }) => {
   const normalizedRanges = useMemo(() => {
     if (ranges.length === 0) {
@@ -26,19 +31,23 @@ export const HightlightedText = <D extends any = unknown>({
     }
 
     const tree = makeRangesTree(text.length, ranges);
-    return rangesTreeToRanges(tree);
-  }, [text, ranges]);
+    return rangesTreeToRanges(tree, undefined, mergeRangesData);
+  }, [text, ranges, mergeRangesData]);
 
   return (
     <>
       {ranges.length === 0
         ? renderRange("0", text)
-        : generateReactNodesForTextWithRanges(text, normalizedRanges, renderRange)}
+        : generateReactNodesForTextWithRanges(
+            text,
+            normalizedRanges,
+            renderRange,
+          )}
     </>
   );
 };
 
-const generateReactNodesForTextWithRanges = <D extends any = unknown>(
+const generateReactNodesForTextWithRanges = <D extends unknown = unknown>(
   text: string,
   ranges: HighlightedRange<D>[],
   renderRange: RenderRange<D>,
@@ -56,11 +65,7 @@ const generateReactNodesForTextWithRanges = <D extends any = unknown>(
     }
 
     elements.push(
-      renderRange(
-        `${r[0]}-${r[1]}`,
-        text.slice(r[0], r[1]),
-        ranges[i].data,
-      ),
+      renderRange(`${r[0]}-${r[1]}`, text.slice(r[0], r[1]), ranges[i].data),
     );
 
     currentIndex = r[1];
